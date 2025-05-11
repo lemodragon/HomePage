@@ -1,12 +1,12 @@
 {
-	"name": "simonaking-homepage",
+	"name": "lemodragon-homepage",
 	"version": "1.0.0",
-	"author": "SimonAKing <simon@tomotoes.com>",
+	"author": "lemodragon <demo@lvdpub.com>",
 	"license": "LGPI-3.0",
-	"homepage": "http://tomotoes.com",
-	"repository": "https://github.com/SimonAKing/HomePage",
-	"bugs": "https://github.com/SimonAKing/HomePage/issues",
-	"description": "SimonAKing-homepage",
+	"homepage": "https://demo.lvdpub.com",
+	"repository": "https://github.com/lemodragon/HomePage",
+	"bugs": "https://github.com/lemodragon/HomePage/issues",
+	"description": "lemodragon-homepage",
 	"scripts": {
 		"predev": "gulp build",
 		"dev": "gulp watch",

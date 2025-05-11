@@ -1,18 +1,18 @@
 {
 	"head": {
-		"title": "SimonAKing",
-		"description": "Author:SimonAKing,Category:Personal Blog",
+		"title": "feifa “悱發”",
+		"description": "Author:feifa “悱發”,Category:Personal Blog",
 		"favicon": "favicon.ico"
 	},
 	"intro": {
-		"title": "SimonAKing",
+		"title": "feifa “悱發”",
 		"subtitle": "Front back left right end engineer",
 		"enter": "enter",
-		"supportAuthor": true,
+		"supportAuthor": false,
 		"background": true
 	},
 	"main": {
-		"name": "SimonAKing",
+		"name": "feifa “悱發”",
 		"signature": "Code & Input & Output",
 		"avatar": {
 			"link": "assets/avatar.jpg",
@@ -21,7 +21,7 @@
 		},
 		"ul": {
 			"first": {
-				"href": "blog/",
+				"href": "https://blog.lavender8.top",
 				"icon": "bokeyuan",
 				"text": "Blog"
 			},
@@ -31,12 +31,12 @@
 				"text": "About"
 			},
 			"third": {
-				"href": "mailto:simon@tomotoes.com",
+				"href": "mailto:demo@lvdpub.com",
 				"icon": "email",
 				"text": "Email"
 			},
 			"fourth": {
-				"href": "https://github.com/tomotoes",
+				"href": "https://github.com/lemodragon",
 				"icon": "github",
 				"text": "Github"
 			}
