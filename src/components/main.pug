@@ -6,8 +6,9 @@
 				h1(data-translate="name") #{main.name}
 				h2#signature(data-translate="signature") #{main.signature}
 
-			- const { first , second , third, fourth } = main.ul
+			- const { first , second , third, fourth, fifth, sixth, seventh, eighth } = main.ul
 			ul
+				//- First row - 7 icons
 				li
 					a(href=`${first.href}` aria-label=`${first.text}`)
 						i(class=`icon icon-${first.icon}`)
@@ -27,5 +28,98 @@
 					a(href=`${fourth.href}` aria-label=`${fourth.text}` target="_blank")
 						i(class=`icon icon-${fourth.icon}`)
 						span(data-translate=`${fourth.text}`) #{fourth.text}
+
+				li
+					a(href=`${fifth.href}` aria-label=`${fifth.text}` target="_blank")
+						i(class=`icon icon-${fifth.icon}`)
+						span(data-translate=`${fifth.text}`) #{fifth.text}
+
+				li
+					a(href=`${sixth.href}` aria-label=`${sixth.text}` target="_blank")
+						i(class=`icon icon-${sixth.icon}`)
+						span(data-translate=`${sixth.text}`) #{sixth.text}
+
+				li
+					a(href=`${seventh.href}` aria-label=`${seventh.text}` target="_blank")
+						i(class=`icon icon-${seventh.icon}`)
+						span(data-translate=`${seventh.text}`) #{seventh.text}
+
+				//- Second row - 9 icons
+				li
+					a(href=`${eighth.href}` aria-label=`${eighth.text}` target="_blank")
+						i(class=`icon icon-${eighth.icon}`)
+						span(data-translate=`${eighth.text}`) #{eighth.text}
+
+				//- Additional icons for demonstration of trapezoid pattern
+				li
+					a(href="#" aria-label="Music")
+						i(class="icon icon-yinle")
+						span(data-translate="Music") Music
+
+				li
+					a(href="#" aria-label="Book")
+						i(class="icon icon-shu")
+						span(data-translate="Book") Book
+
+				li
+					a(href="#" aria-label="Code")
+						i(class="icon icon-code")
+						span(data-translate="Code") Code
+
+				li
+					a(href="#" aria-label="Photo")
+						i(class="icon icon-tupian")
+						span(data-translate="Photo") Photo
+
+				li
+					a(href="#" aria-label="Video")
+						i(class="icon icon-shipin")
+						span(data-translate="Video") Video
+
+				li
+					a(href="#" aria-label="Game")
+						i(class="icon icon-game")
+						span(data-translate="Game") Game
+
+				li
+					a(href="#" aria-label="Search")
+						i(class="icon icon-sousuo")
+						span(data-translate="Search") Search
+
+				li
+					a(href="#" aria-label="Setting")
+						i(class="icon icon-shezhi")
+						span(data-translate="Setting") Setting
+
+				//- Third row - 11 icons (can add more if needed)
+				li
+					a(href="#" aria-label="Home")
+						i(class="icon icon-shouye")
+						span(data-translate="Home") Home
+
+				li
+					a(href="#" aria-label="Star")
+						i(class="icon icon-xingxing")
+						span(data-translate="Star") Star
+
+				li
+					a(href="#" aria-label="Heart")
+						i(class="icon icon-xin")
+						span(data-translate="Heart") Heart
+
+				li
+					a(href="#" aria-label="Cloud")
+						i(class="icon icon-yun")
+						span(data-translate="Cloud") Cloud
+
+				li
+					a(href="#" aria-label="Weather")
+						i(class="icon icon-tianqi")
+						span(data-translate="Weather") Weather
+
+				li
+					a(href="#" aria-label="Time")
+						i(class="icon icon-shijian")
+						span(data-translate="Time") Time
 
 	canvas.grid-background#gridCanvas

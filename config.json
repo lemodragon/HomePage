@@ -1,19 +1,19 @@
 {
 	"head": {
-		"title": "feifa “悱發”",
-		"description": "Author:feifa “悱發”,Category:Personal Blog",
+		"title": "feifa \"悱發\"",
+		"description": "Author:feifa \"悱發\",Category:Personal Blog",
 		"favicon": "favicon.ico"
 	},
 	"intro": {
-		"title": "feifa “悱發”",
-		"subtitle": "Front back left right end engineer",
+		"title": "feifa \"悱發\"",
+		"subtitle": "You have the ability to create a wonderful life",
 		"enter": "enter",
 		"supportAuthor": false,
 		"background": true
 	},
 	"main": {
-		"name": "feifa “悱發”",
-		"signature": "Code & Input & Output",
+		"name": "feifa \"悱發\"",
+		"signature": "Designer & Operation & amateur",
 		"avatar": {
 			"link": "assets/avatar.jpg",
 			"height": "100",
@@ -39,6 +39,26 @@
 				"href": "https://github.com/lemodragon",
 				"icon": "github",
 				"text": "Github"
+			},
+			"fifth": {
+				"href": "https://twitter.com/yourhandle",
+				"icon": "twitter",
+				"text": "Twitter"
+			},
+			"sixth": {
+				"href": "https://instagram.com/yourhandle",
+				"icon": "custom-instagram",
+				"text": "Instagram"
+			},
+			"seventh": {
+				"href": "https://space.bilibili.com/yourhandle",
+				"icon": "custom-bilibili",
+				"text": "Bilibili"
+			},
+			"eighth": {
+				"href": "https://linux.do/u/kaffirlily/summary",
+				"icon": "custom-linuxdo",
+				"text": "LinuxDO"
 			}
 		}
 	}

@@ -19,14 +19,14 @@ gulp.task('clean', function () {
 
 gulp.task('css', function () {
 	return gulp
-	.src('./src/css/*.less')
-	.pipe(less().on('error', function(err) {
-		console.log(err);
-		this.emit('end');
-	}))
-	.pipe(minifycss({ compatibility: 'ie8' }))
-	.pipe(autoprefixer({ overrideBrowserslist: ['last 2 version'] }))
-	.pipe(cssnano({ reduceIdents: false }))
+		.src(['./src/css/*.less', './src/css/*.css'])
+		.pipe(less().on('error', function (err) {
+			console.log(err);
+			this.emit('end');
+		}))
+		.pipe(minifycss({ compatibility: 'ie8' }))
+		.pipe(autoprefixer({ overrideBrowserslist: ['last 2 version'] }))
+		.pipe(cssnano({ reduceIdents: false }))
 		.pipe(gulp.dest('./dist/css'))
 })
 
@@ -65,7 +65,7 @@ gulp.task('default', gulp.series('build'))
 gulp.task('watch', function () {
 	gulp.watch('./src/components/*.pug', gulp.parallel('pug'))
 	gulp.watch('./src/index.pug', gulp.parallel('pug'))
-	gulp.watch('./src/css/**/*.scss', gulp.parallel(['css']))
+	gulp.watch(['./src/css/**/*.scss', './src/css/**/*.css'], gulp.parallel(['css']))
 	gulp.watch('./src/js/*.js', gulp.parallel(['js']))
 	connect.server({
 		root: 'dist',
