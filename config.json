@@ -26,9 +26,9 @@
 				"text": "Blog"
 			},
 			"second": {
-				"href": "about/",
-				"icon": "xiaolian",
-				"text": "About"
+				"href": "https://mp.weixin.qq.com/s/-aKMmpRIQ5KNsJmOh5Gp8Q",
+				"icon": "openai",
+				"text": "OI"
 			},
 			"third": {
 				"href": "mailto:demo@lvdpub.com",
@@ -41,24 +41,34 @@
 				"text": "Github"
 			},
 			"fifth": {
-				"href": "https://twitter.com/yourhandle",
-				"icon": "twitter",
-				"text": "Twitter"
-			},
-			"sixth": {
-				"href": "https://instagram.com/yourhandle",
-				"icon": "custom-instagram",
-				"text": "Instagram"
-			},
-			"seventh": {
-				"href": "https://space.bilibili.com/yourhandle",
-				"icon": "custom-bilibili",
-				"text": "Bilibili"
-			},
-			"eighth": {
 				"href": "https://linux.do/u/kaffirlily/summary",
 				"icon": "custom-linuxdo",
 				"text": "LinuxDO"
+			},
+			"sixth": {
+				"href": "https://note.lvdpub.com",
+				"icon": "noto-share",
+				"text": "Note"
+			},
+			"seventh": {
+				"href": "https://alist.lavender8.top",
+				"icon": "yunpan3",
+				"text": "Alist"
+			},
+			"eighth": {
+				"href": "https://tag.cute.pp.ua",
+				"icon": "a-shuqian2",
+				"text": "Bookmark"
+			},
+			"ninth": {
+				"href": "https://draw.lvdpub.com",
+				"icon": "draw-copy",
+				"text": "Draw"
+			},
+			"tenth": {
+				"href": "https://draw.cute.pp.ua",
+				"icon": "photos",
+				"text": "Photo"
 			}
 		}
 	}

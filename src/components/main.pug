@@ -6,7 +6,7 @@
 				h1(data-translate="name") #{main.name}
 				h2#signature(data-translate="signature") #{main.signature}
 
-			- const { first , second , third, fourth, fifth, sixth, seventh, eighth } = main.ul
+			- const { first , second , third, fourth, fifth, sixth, seventh, eighth, ninth, tenth } = main.ul
 			ul
 				//- First row - 7 icons
 				li
@@ -49,6 +49,16 @@
 					a(href=`${eighth.href}` aria-label=`${eighth.text}` target="_blank")
 						i(class=`icon icon-${eighth.icon}`)
 						span(data-translate=`${eighth.text}`) #{eighth.text}
+
+				li
+					a(href=`${ninth.href}` aria-label=`${ninth.text}` target="_blank")
+						i(class=`icon icon-${ninth.icon}`)
+						span(data-translate=`${ninth.text}`) #{ninth.text}
+
+				li
+					a(href=`${tenth.href}` aria-label=`${tenth.text}` target="_blank")
+						i(class=`icon icon-${tenth.icon}`)
+						span(data-translate=`${tenth.text}`) #{tenth.text}
 
 				//- Additional icons for demonstration of trapezoid pattern
 				li

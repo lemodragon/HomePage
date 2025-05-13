@@ -93,8 +93,8 @@
     }
 }
 
-/* 主头像动画 - 作为天枢星点 */
-@keyframes tianshu-pulse {
+/* 主头像动画 - 作为天权星点 */
+@keyframes tianji-pulse {
     0% {
         box-shadow: 0 0 4px 2px rgba(0, 0, 0, .3), 0 0 15px rgba(255, 255, 255, 0.5);
         border-color: rgba(255, 255, 255, 0.8);
@@ -114,12 +114,12 @@
     }
 }
 
-/* 应用天枢动画到主头像 */
+/* 应用天权动画到主头像 */
 .card-inner header img {
     border: 3px solid rgba(255, 255, 255, 0.9);
     border-radius: 50%;
     box-shadow: 0 0 2px 1px rgba(0, 0, 0, .3), 0 0 15px rgba(255, 255, 255, 0.6);
-    animation: tianshu-pulse 5s infinite alternate;
+    animation: tianji-pulse 5s infinite alternate;
     transition: all .4s ease-in-out;
     position: relative;
     z-index: 100;
@@ -133,7 +133,7 @@
     animation-play-state: paused;
 }
 
-/* Star positions based on the reference image with "天枢" centered over the title */
+/* Star positions based on the reference image with "天权" centered over the title */
 .yaoguang {
     top: 50%;
     left: 8%;
@@ -195,21 +195,21 @@
     transform: rotate(0deg);
 }
 
-.tianquan {
+/* 天玑 */
+.tianji {
     top: 35%;
     left: 66%;
 }
 
-/* 天权 */
-.tianquan img {
+.tianji img {
     width: 50px;
     height: 50px;
     animation: star-pulse 5.2s infinite alternate;
     animation-delay: 3.0s;
 }
 
-/* 主头像到天权的连线 */
-.tianshu-line {
+/* 主头像到天玑的连线 */
+.tianji-line {
     width: 16vw;
     top: calc(50% - 40px);
     /* 根据主头像位置动态调整 */
@@ -217,40 +217,40 @@
     transform: rotate(20deg);
 }
 
-.tianyue {
+/* 天璇 */
+.tianxuan {
     top: 25%;
     left: 82%;
 }
 
-/* 天璇 */
-.tianyue img {
+.tianxuan img {
     width: 45px;
     height: 45px;
     animation: star-pulse 4.8s infinite alternate;
     animation-delay: 3.3s;
 }
 
-.tianquan-line {
+.tianxuan-line {
     width: 15vw;
     top: calc(35% + 50px/2 - 0.5px);
     left: calc(66% + 50px/2);
     transform: rotate(-20deg);
 }
 
-.tianzhu {
+/* 天枢 */
+.tianshu {
     top: 8%;
     left: 88%;
 }
 
-/* 天柱 */
-.tianzhu img {
+.tianshu img {
     width: 45px;
     height: 45px;
     animation: star-pulse 4.6s infinite alternate;
     animation-delay: 0.6s;
 }
 
-.tianyue-line {
+.tianshu-line {
     width: 8vw;
     top: calc(25% + 45px/2 - 0.5px);
     left: calc(82% + 45px/2);
@@ -259,6 +259,23 @@
 
 /* Mobile responsive styles */
 @media screen and (max-width: 768px) {
+
+    /* 在移动设备上隐藏北斗七星，仅保留主头像动画效果 */
+    .big-dipper-container .star,
+    .big-dipper-container .dipper-line {
+        display: none;
+    }
+
+    /* 确保主头像的动画和样式保持不变 */
+    .card-inner header img {
+        display: block;
+        animation: tianji-pulse 5s infinite alternate;
+        box-shadow: 0 0 2px 1px rgba(0, 0, 0, .3), 0 0 15px rgba(255, 255, 255, 0.6);
+    }
+}
+
+/* 旧的移动设备样式，如果屏幕足够大，会用这些样式 */
+@media screen and (min-width: 769px) {
     .star img {
         transform: scale(0.9);
     }
@@ -282,17 +299,17 @@
         left: 35%;
     }
 
-    .tianquan {
+    .tianji {
         top: 35%;
         left: 68%;
     }
 
-    .tianyue {
+    .tianxuan {
         top: 25%;
         left: 83%;
     }
 
-    .tianzhu {
+    .tianshu {
         top: 8%;
         left: 86%;
     }
@@ -315,19 +332,19 @@
         left: calc(35% + 50px*0.9/2);
     }
 
-    .tianshu-line {
+    .tianji-line {
         width: 15vw;
         top: calc(50% - 30px);
         left: 50%;
     }
 
-    .tianquan-line {
+    .tianxuan-line {
         width: 15vw;
         top: calc(35% + 50px*0.9/2 - 0.5px);
         left: calc(68% + 50px*0.9/2);
     }
 
-    .tianyue-line {
+    .tianshu-line {
         width: 8vw;
         top: calc(25% + 45px*0.9/2 - 0.5px);
         left: calc(83% + 45px*0.9/2);
@@ -335,79 +352,12 @@
     }
 }
 
+/* 超小屏幕设备 */
 @media screen and (max-width: 480px) {
-    .star img {
-        transform: scale(0.7);
-    }
+    /* 保持北斗七星隐藏，继承自 768px 的媒体查询 */
 
-    .star-name {
-        font-size: 9px;
-    }
-
-    .yaoguang {
-        top: 58%;
-        left: 5%;
-    }
-
-    .kaiyang {
-        top: 27%;
-        left: 20%;
-    }
-
-    .yuheng {
-        top: 27%;
-        left: 35%;
-    }
-
-    .tianquan {
-        top: 40%;
-        left: 70%;
-    }
-
-    .tianyue {
-        top: 30%;
-        left: 85%;
-    }
-
-    .tianzhu {
-        top: 8%;
-        left: 85%;
-    }
-
-    .yaoguang-line {
-        width: 12vw;
-        top: calc(58% + 45px*0.7/2 - 0.5px);
-        left: calc(5% + 45px*0.7/2);
-    }
-
-    .kaiyang-line {
-        width: 12vw;
-        top: calc(27% + 45px*0.7/2 - 0.5px);
-        left: calc(20% + 45px*0.7/2);
-    }
-
-    .yuheng-line {
-        width: 15vw;
-        top: calc(27% + 50px*0.7/2 - 0.5px);
-        left: calc(35% + 50px*0.7/2);
-    }
-
-    .tianshu-line {
-        width: 12vw;
-        top: calc(50% - 25px);
-        left: 50%;
-    }
-
-    .tianquan-line {
-        width: 12vw;
-        top: calc(40% + 50px*0.7/2 - 0.5px);
-        left: calc(70% + 50px*0.7/2);
-    }
-
-    .tianyue-line {
-        width: 7vw;
-        top: calc(30% + 45px*0.7/2 - 0.5px);
-        left: calc(85% + 45px*0.7/2);
-        transform: rotate(-75deg);
+    /* 主头像样式微调 */
+    .card-inner header img {
+        transform: scale(0.9);
     }
 }

@@ -1,5 +1,21 @@
 // Add randomized breathing effect to stars
 document.addEventListener('DOMContentLoaded', function () {
+    // 检测是否为移动设备
+    const isMobile = window.innerWidth <= 768;
+
+    // 在移动设备上，只保留主头像动画，不执行其他北斗七星相关代码
+    if (isMobile) {
+        // 确保主头像动画正常
+        const mainAvatar = document.querySelector('.card-inner header img');
+        if (mainAvatar) {
+            // 随机化动画时间，增加自然感
+            const randomDelay = Math.random() * 0.5;
+            mainAvatar.style.animationDelay = `${randomDelay}s`;
+        }
+        return; // 移动设备下不执行后续北斗七星相关代码
+    }
+
+    // PC端完整北斗七星效果
     // Get all star elements
     const stars = document.querySelectorAll('.star img');
     // Get the main avatar (to be used as tianshu)
@@ -68,17 +84,17 @@ document.addEventListener('DOMContentLoaded', function () {
             yuhengLine.style.transform = `rotate(${angle}deg)`;
         }
 
-        // Update tianshu-line (to connect from main avatar to tianquan)
+        // Update tianshu-line (to connect from main avatar to tianji)
         const tianshuLine = document.querySelector('.tianshu-line');
-        const tianquan = document.querySelector('.tianquan');
-        if (tianshuLine && tianquan) {
-            const tianquanRect = tianquan.getBoundingClientRect();
-            const tianquanCenterX = tianquanRect.left + tianquanRect.width / 2;
-            const tianquanCenterY = tianquanRect.top + tianquanRect.height / 2;
+        const tianji = document.querySelector('.tianji');
+        if (tianshuLine && tianji) {
+            const tianjiRect = tianji.getBoundingClientRect();
+            const tianjiCenterX = tianjiRect.left + tianjiRect.width / 2;
+            const tianjiCenterY = tianjiRect.top + tianjiRect.height / 2;
 
             // Calculate distance and angle
-            const dx = tianquanCenterX - avatarCenterX;
-            const dy = tianquanCenterY - avatarCenterY;
+            const dx = tianjiCenterX - avatarCenterX;
+            const dy = tianjiCenterY - avatarCenterY;
             const length = Math.sqrt(dx * dx + dy * dy);
             const angle = Math.atan2(dy, dx) * 180 / Math.PI;
 
@@ -92,8 +108,16 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Update line positions on load and on window resize
     updateLinePositions();
-    window.addEventListener('resize', updateLinePositions);
-    window.addEventListener('scroll', updateLinePositions);
+    window.addEventListener('resize', function () {
+        // 检查窗口大小变化，如果变成移动设备大小，停止处理
+        if (window.innerWidth <= 768) return;
+        updateLinePositions();
+    });
+    window.addEventListener('scroll', function () {
+        // 在滚动时也检查窗口大小
+        if (window.innerWidth <= 768) return;
+        updateLinePositions();
+    });
 
     // Subtle pulse effect for lines
     const lines = document.querySelectorAll('.dipper-line');
