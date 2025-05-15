@@ -22,17 +22,17 @@
 		"ul": {
 			"first": {
 				"href": "https://blog.lavender8.top",
-				"icon": "bokeyuan",
+				"icon": "ic_blog",
 				"text": "Blog"
 			},
 			"second": {
-				"href": "https://mp.weixin.qq.com/s/-aKMmpRIQ5KNsJmOh5Gp8Q",
-				"icon": "openai",
-				"text": "OI"
+				"href": "https://linux.do/u/kaffirlily/summary",
+				"icon": "custom-linuxdo",
+				"text": "LinuxDO"
 			},
 			"third": {
 				"href": "mailto:demo@lvdpub.com",
-				"icon": "email",
+				"icon": "email-o",
 				"text": "Email"
 			},
 			"fourth": {
@@ -41,34 +41,39 @@
 				"text": "Github"
 			},
 			"fifth": {
-				"href": "https://linux.do/u/kaffirlily/summary",
-				"icon": "custom-linuxdo",
-				"text": "LinuxDO"
-			},
-			"sixth": {
-				"href": "https://note.lvdpub.com",
-				"icon": "noto-share",
-				"text": "Note"
-			},
-			"seventh": {
 				"href": "https://alist.lavender8.top",
-				"icon": "yunpan3",
+				"icon": "alist1",
 				"text": "Alist"
 			},
+			"sixth": {
+				"href": "https://mp.weixin.qq.com/s/-aKMmpRIQ5KNsJmOh5Gp8Q",
+				"icon": "openai",
+				"text": "OI"
+			},
+			"seventh": {
+				"href": "https://note.lvdpub.com",
+				"icon": "a-bijibenbiji",
+				"text": "Note"
+			},
 			"eighth": {
-				"href": "https://tag.cute.pp.ua",
-				"icon": "a-shuqian2",
-				"text": "Bookmark"
+				"href": "https://draw.cute.pp.ua",
+				"icon": "draw",
+				"text": "Draw"
 			},
 			"ninth": {
 				"href": "https://draw.lvdpub.com",
-				"icon": "draw-copy",
-				"text": "Draw"
+				"icon": "photo",
+				"text": "Photo"
 			},
 			"tenth": {
-				"href": "https://draw.cute.pp.ua",
-				"icon": "photos",
-				"text": "Photo"
+				"href": "https://tag.cute.pp.ua",
+				"icon": "bookmark1",
+				"text": "Tag"
+			},
+			"eleventh": {
+				"href": "https://address.lvdpub.com",
+				"icon": "address",
+				"text": "Address"
 			}
 		}
 	}

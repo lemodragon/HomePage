@@ -1,0 +1,37 @@
+/* 
+ * 修复图标和文字对齐问题的CSS 
+ */
+
+/* 确保每个导航项目的宽度一致 */
+#card .card-inner ul li {
+    width: 60px;
+    display: inline-block;
+    vertical-align: top;
+}
+
+/* 确保图标居中 */
+#card .card-inner ul li a i {
+    display: block;
+    width: 32px;
+    height: 32px;
+    margin: 0 auto 8px;
+    line-height: 32px;
+}
+
+/* 确保文字居中 */
+#card .card-inner ul li a span {
+    display: block;
+    width: 100%;
+    text-align: center;
+    white-space: nowrap;
+    font-size: 12px;
+    line-height: 1.2;
+}
+
+/* 调整链接容器样式 */
+#card .card-inner ul li a {
+    display: block;
+    width: 100%;
+    text-align: center;
+    padding: 0;
+}

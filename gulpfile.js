@@ -65,7 +65,7 @@ gulp.task('default', gulp.series('build'))
 gulp.task('watch', function () {
 	gulp.watch('./src/components/*.pug', gulp.parallel('pug'))
 	gulp.watch('./src/index.pug', gulp.parallel('pug'))
-	gulp.watch(['./src/css/**/*.scss', './src/css/**/*.css'], gulp.parallel(['css']))
+	gulp.watch(['./src/css/**/*.less', './src/css/**/*.scss', './src/css/**/*.css'], gulp.parallel(['css']))
 	gulp.watch('./src/js/*.js', gulp.parallel(['js']))
 	connect.server({
 		root: 'dist',

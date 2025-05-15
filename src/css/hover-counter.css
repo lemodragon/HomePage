@@ -1,0 +1,116 @@
+/* 悬停触发计数器样式 */
+
+/* 切换按钮样式 */
+.toggle-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    margin-right: 8px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+    z-index: 10;
+}
+
+.toggle-button:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.toggle-button .arrow-icon {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.8);
+    transform: rotate(0deg);
+    transition: transform 0.3s ease;
+}
+
+.click-counter-container.expanded .toggle-button .arrow-icon {
+    transform: rotate(180deg);
+}
+
+/* 展开/折叠过渡效果 */
+.click-counter-container:not(.expanded) .counter-details {
+    max-width: 0;
+    opacity: 0;
+    transition: max-width 0.3s ease-out, opacity 0.2s ease-out;
+}
+
+.click-counter-container.expanded .counter-details {
+    max-width: 1000px;
+    opacity: 1;
+    transition: max-width 0.3s ease-out, opacity 0.2s ease-out 0.1s;
+}
+
+/* 点击与悬停触发器 */
+.hover-trigger {
+    position: absolute;
+    bottom: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.6));
+    color: white;
+    padding: 5px 15px;
+    border-radius: 0 0 15px 15px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+    opacity: 0;
+    z-index: 1001;
+}
+
+/* 悬停触发器箭头图标 */
+.hover-trigger .arrow-icon {
+    font-size: 14px;
+    transform: rotate(180deg);
+    transition: transform 0.3s ease;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+/* 悬停触发器文本样式 */
+.hover-trigger .hover-text {
+    font-size: 14px;
+    font-weight: bold;
+    background: linear-gradient(45deg, #ff69b4, #ff1493);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 0 5px rgba(255, 105, 180, 0.2);
+}
+
+/* 显示触发器但隐藏计数器 */
+.click-counter-container.has-counts .hover-trigger {
+    opacity: 1;
+}
+
+/* 悬停时隐藏触发器，显示计数器 */
+.click-counter-container.has-counts:hover .hover-trigger,
+.click-counter-container.has-counts.expanded .hover-trigger {
+    opacity: 0;
+}
+
+/* 移动端适配 */
+@media screen and (max-width: 768px) {
+    .hover-trigger {
+        bottom: -26px;
+        padding: 3px 12px;
+    }
+    
+    .hover-trigger .arrow-icon {
+        font-size: 12px;
+    }
+    
+    .hover-trigger .hover-text {
+        font-size: 12px;
+    }
+    
+    .toggle-button {
+        width: 18px;
+        height: 18px;
+        margin-right: 5px;
+    }
+}

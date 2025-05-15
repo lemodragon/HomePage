@@ -121,6 +121,8 @@
 				display: inline-block;
 				transition: all 0.2s;
 				margin: 0 10px 15px;
+				text-align: center;
+				/* 确保内容居中 */
 
 				a {
 					color: #b6b6b6;
@@ -128,8 +130,11 @@
 					display: flex;
 					flex-direction: column;
 					align-items: center;
+					justify-content: center;
 					text-align: center;
 					width: 60px;
+					position: relative;
+					/* 添加定位上下文 */
 
 					&:hover {
 						color: #f6f6f6;
@@ -143,6 +148,29 @@
 
 					i {
 						transition: transform 0.2s ease;
+						margin-bottom: 8px;
+						/* 增加图标和文字之间的间距 */
+						display: flex;
+						/* 使用flex布局 */
+						justify-content: center;
+						/* 水平居中 */
+						align-items: center;
+						/* 垂直居中 */
+					}
+
+					span {
+						display: block;
+						width: 100%;
+						text-align: center;
+						white-space: nowrap;
+						font-size: 12px;
+						/* 统一文本大小 */
+						line-height: 1.2;
+						/* 控制行高 */
+						position: relative;
+						/* 允许定位调整 */
+						left: 0;
+						/* 确保水平居中 */
 					}
 				}
 			}
