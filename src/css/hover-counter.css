@@ -30,17 +30,11 @@
     transform: rotate(180deg);
 }
 
-/* 展开/折叠过渡效果 */
-.click-counter-container:not(.expanded) .counter-details {
-    max-width: 0;
-    opacity: 0;
-    transition: max-width 0.3s ease-out, opacity 0.2s ease-out;
-}
-
-.click-counter-container.expanded .counter-details {
-    max-width: 1000px;
+/* 展开/折叠过渡效果 - 移除隐藏效果，始终显示所有内容 */
+.click-counter-container .counter-details {
+    max-width: none;
     opacity: 1;
-    transition: max-width 0.3s ease-out, opacity 0.2s ease-out 0.1s;
+    transition: none;
 }
 
 /* 点击与悬停触发器 */
@@ -99,15 +93,15 @@
         bottom: -26px;
         padding: 3px 12px;
     }
-    
+
     .hover-trigger .arrow-icon {
         font-size: 12px;
     }
-    
+
     .hover-trigger .hover-text {
         font-size: 12px;
     }
-    
+
     .toggle-button {
         width: 18px;
         height: 18px;

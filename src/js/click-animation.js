@@ -19,12 +19,26 @@ document.addEventListener('DOMContentLoaded', function () {
         COMBO_TIMEOUT: 1000 // 连击超时时间（毫秒）
     };
 
+    // 面板隐藏计时器ID
+    let panelHideTimerId = null;
+    // 面板显示时间(毫秒)
+    const PANEL_DISPLAY_TIME = 5000; // 5秒
+    // 面板即将隐藏的警告时间(毫秒)
+    const PANEL_WARNING_TIME = 1000; // 1秒
+
     // 获取DOM元素
     const counterContainer = document.querySelector(".click-counter-container");
+
+    // 添加一个标志用于跟踪用户是否已经点击过
+    let hasClickedAny = false;
+    // 添加一个标志用于跟踪是否是第一次点击
+    let isFirstClick = true;
 
     // 确保计数器容器初始状态是隐藏的，移除任何可能导致显示的类
     if (counterContainer) {
         counterContainer.classList.remove("hover-active");
+        counterContainer.classList.remove("has-counts");
+        counterContainer.classList.remove("shown-hint");
     }
 
     // 尝试从localStorage加载数据
@@ -32,8 +46,16 @@ document.addEventListener('DOMContentLoaded', function () {
     if (savedCounter) {
         try {
             luckCounter = JSON.parse(savedCounter);
-            // 立即更新显示（但保持面板隐藏）
-            updateCounterDisplay();
+            // 检查是否有任何计数大于0
+            const hasAnyCount = Object.values(luckCounter).some(value => value > 0);
+
+            // 如果有计数，则设置已点击标志
+            if (hasAnyCount) {
+                hasClickedAny = true;
+                isFirstClick = false; // 不再是第一次点击
+                // 更新显示（但保持面板隐藏，直到用户鼠标悬停）
+                updateCounterDisplay();
+            }
         } catch (e) {
             console.error("Failed to load saved counter", e);
         }
@@ -42,14 +64,21 @@ document.addEventListener('DOMContentLoaded', function () {
     // 获取其他DOM元素
     const hoverTrigger = document.querySelector(".hover-trigger");
     const topHoverArea = document.querySelector(".top-hover-area");
-    const counterDetails = document.querySelector(".counter-details");
+    const counterAllValues = document.querySelector(".counter-all-values");
 
     // 为顶部悬停区域添加鼠标事件
     if (topHoverArea && counterContainer) {
-        // 当鼠标移入顶部区域时，显示计数器
+        // 当鼠标移入顶部区域时，显示计数器（但仅当用户已经点击过任何星点头像时）
         topHoverArea.addEventListener("mouseenter", function () {
-            if (counterContainer.classList.contains("has-counts")) {
+            if (hasClickedAny && counterContainer.classList.contains("has-counts")) {
                 counterContainer.classList.add("hover-active");
+
+                // 清除任何现有的隐藏计时器
+                if (panelHideTimerId) {
+                    clearTimeout(panelHideTimerId);
+                    panelHideTimerId = null;
+                    counterContainer.classList.remove("about-to-hide");
+                }
             }
         });
 
@@ -63,38 +92,120 @@ document.addEventListener('DOMContentLoaded', function () {
                 e.clientY < rect.top ||
                 e.clientY > rect.bottom
             ) {
-                counterContainer.classList.remove("hover-active");
+                // 设置定时器，5秒后隐藏面板
+                startPanelHideTimer();
             }
         });
     }
 
     if (counterContainer) {
-        // 当鼠标移入计数器时，保持计数器显示
+        // 当鼠标移入计数器时，保持计数器显示（但仅当用户已经点击过任何星点头像时）
         counterContainer.addEventListener("mouseenter", function () {
-            if (counterContainer.classList.contains("has-counts")) {
+            if (hasClickedAny && counterContainer.classList.contains("has-counts")) {
                 counterContainer.classList.add("hover-active");
+                // 当鼠标移入面板时，清除自动隐藏计时器
+                if (panelHideTimerId) {
+                    clearTimeout(panelHideTimerId);
+                    panelHideTimerId = null;
+                    counterContainer.classList.remove("about-to-hide");
+                }
             }
         });
 
-        // 当鼠标离开计数器时，隐藏计数器
+        // 当鼠标离开计数器时，设置隐藏计时器
         counterContainer.addEventListener("mouseleave", function () {
-            counterContainer.classList.remove("hover-active");
+            // 设置定时器，5秒后隐藏面板
+            startPanelHideTimer();
         });
     }
 
     // 为触发器添加鼠标事件
     if (hoverTrigger && counterContainer) {
         hoverTrigger.addEventListener("mouseenter", function () {
-            if (counterContainer.classList.contains("has-counts")) {
+            if (hasClickedAny && counterContainer.classList.contains("has-counts")) {
                 counterContainer.classList.add("hover-active");
+
+                // 清除任何现有的隐藏计时器
+                if (panelHideTimerId) {
+                    clearTimeout(panelHideTimerId);
+                    panelHideTimerId = null;
+                    counterContainer.classList.remove("about-to-hide");
+                }
             }
         });
+    }
+
+    // 启动面板隐藏计时器，包括警告效果
+    function startPanelHideTimer() {
+        if (!counterContainer) return;
+
+        // 清除之前的计时器
+        if (panelHideTimerId) {
+            clearTimeout(panelHideTimerId);
+        }
+
+        // 设置新的计时器，5秒后隐藏面板
+        panelHideTimerId = setTimeout(() => {
+            counterContainer.classList.remove("hover-active");
+            counterContainer.classList.remove("about-to-hide");
+            panelHideTimerId = null;
+        }, PANEL_DISPLAY_TIME);
+
+        // 设置警告计时器，在隐藏前1秒显示警告效果
+        setTimeout(() => {
+            if (panelHideTimerId) {
+                counterContainer.classList.add("about-to-hide");
+            }
+        }, PANEL_DISPLAY_TIME - PANEL_WARNING_TIME);
+    }
+
+    // 显示面板并重置隐藏计时器
+    function showPanelWithTimeout() {
+        if (counterContainer) {
+            // 显示面板
+            counterContainer.classList.add("hover-active");
+
+            // 如果是第一次点击，添加特殊的动画类
+            if (isFirstClick) {
+                counterContainer.classList.add("first-show");
+                isFirstClick = false;
+
+                // 1秒后移除特殊动画类
+                setTimeout(() => {
+                    counterContainer.classList.remove("first-show");
+                }, 1000);
+            }
+
+            // 清除之前的计时器和警告效果
+            if (panelHideTimerId) {
+                clearTimeout(panelHideTimerId);
+                counterContainer.classList.remove("about-to-hide");
+            }
+
+            // 启动隐藏计时器
+            startPanelHideTimer();
+        }
     }
 
     // 更新计数器显示
     function updateCounterDisplay() {
         const container = document.querySelector(".click-counter-container");
         if (!container) return;
+
+        // 计算总数
+        const total = Object.values(luckCounter).reduce((sum, value) => sum + value, 0);
+
+        // 更新总数显示
+        const totalCounter = document.getElementById("totalLuckCounter");
+        if (totalCounter) {
+            totalCounter.textContent = total;
+
+            // 给总数添加变化动画
+            totalCounter.classList.remove("value-change");
+            setTimeout(() => {
+                totalCounter.classList.add("value-change");
+            }, 10);
+        }
 
         // 更新各个星星的计数
         Object.entries(luckCounter).forEach(([key, value]) => {
@@ -110,33 +221,24 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         });
 
-        // 计算并更新总数
-        const total = Object.values(luckCounter).reduce((sum, value) => sum + value, 0);
-        const totalCounter = document.getElementById("totalLuckCounter");
-        if (totalCounter) {
-            totalCounter.textContent = total;
-
-            // 给总数添加变化动画
-            totalCounter.classList.remove("value-change");
-            setTimeout(() => {
-                totalCounter.classList.add("value-change");
-            }, 10);
-        }
-
         // 根据是否有计数来显示/隐藏计数器
         if (total > 0) {
+            // 设置已点击标志
+            hasClickedAny = true;
             container.classList.add("has-counts");
 
-            // 只添加shown-hint标识，不再自动显示面板
-            if (!container.classList.contains('shown-hint')) {
-                container.classList.add('shown-hint');
-                // 确保不添加hover-active类，这样面板不会自动显示
-                container.classList.remove('hover-active');
-            }
+            // 添加shown-hint标识
+            container.classList.add('shown-hint');
+
+            // 确保不添加hover-active类，这样面板不会自动显示
+            // 在点击事件中会单独添加hover-active以暂时显示面板
         } else {
             container.classList.remove("has-counts");
             container.classList.remove("shown-hint");
             container.classList.remove("hover-active");
+
+            // 如果没有任何计数，重置已点击标志
+            hasClickedAny = false;
         }
     }
 
@@ -149,31 +251,31 @@ document.addEventListener('DOMContentLoaded', function () {
         },
         yaoguang: {
             text: "财运 +",
-            color: "#ffd700", // 金色
-            glowColor: "rgba(255, 215, 0, 0.6)"
+            color: "#ffdf00", // 更亮的金色
+            glowColor: "rgba(255, 223, 0, 0.6)"
         },
         kaiyang: {
             text: "健康运 +",
-            color: "#90ee90", // 淡绿色
-            glowColor: "rgba(144, 238, 144, 0.6)"
+            color: "#7eff7e", // 亮绿色
+            glowColor: "rgba(126, 255, 126, 0.6)"
         },
         yuheng: {
             text: "智慧运 +",
-            color: "#87cefa", // 淡蓝色
-            glowColor: "rgba(135, 206, 250, 0.6)"
+            color: "#00bfff", // 亮蓝色
+            glowColor: "rgba(0, 191, 255, 0.6)"
         },
         tianji: {
             text: "好运 +",
-            color: "#ba55d3", // 中等兰花紫
-            glowColor: "rgba(186, 85, 211, 0.6)"
+            color: "#bf00ff", // 亮紫色
+            glowColor: "rgba(191, 0, 255, 0.6)"
         },
         tianxuan: {
-            text: "福气+",
+            text: "福气 +",
             color: "#ff7f50", // 珊瑚色
             glowColor: "rgba(255, 127, 80, 0.6)"
         },
         tianshu: {
-            text: "缘分+",
+            text: "缘分 +",
             color: "#ff4500", // 橙红色
             glowColor: "rgba(255, 69, 0, 0.6)"
         }
@@ -183,6 +285,11 @@ document.addEventListener('DOMContentLoaded', function () {
     const mainAvatar = document.querySelector(".card-inner header img");
     if (mainAvatar) {
         mainAvatar.addEventListener("click", function (e) {
+            // 第一次点击时，设置已点击标志
+            if (!hasClickedAny) {
+                hasClickedAny = true;
+            }
+
             luckCounter.mainAvatar++;
 
             // 检查连击
@@ -190,9 +297,9 @@ document.addEventListener('DOMContentLoaded', function () {
             if (now - comboTracker.lastClickTime < comboTracker.COMBO_TIMEOUT && comboTracker.targetId === "mainAvatar") {
                 comboTracker.comboCount++;
                 if (comboTracker.comboCount >= 3) {
-                    // 连击3次以上显示特殊文本
-                    const comboText = `连击 x${comboTracker.comboCount}！`;
-                    createFloatingText(e, comboText, "#ff0000", true);
+                    // 连击3次以上显示特殊文本 - 简单文本样式
+                    const comboText = `连击 x${comboTracker.comboCount}`;
+                    createFloatingText(e, comboText, "#ff013c", true);
 
                     if (comboTracker.comboCount >= 10) {
                         // 超过10连击显示彩虹特效
@@ -205,12 +312,16 @@ document.addEventListener('DOMContentLoaded', function () {
             }
             comboTracker.lastClickTime = now;
 
-            const customText = starCustomization.mainAvatar.text + luckCounter.mainAvatar;
+            // 简化为"桃花运 +1"格式
+            const customText = `${starCustomization.mainAvatar.text.replace('+', '').trim()} +${luckCounter.mainAvatar}`;
             const customColor = starCustomization.mainAvatar.color;
             createFloatingText(e, customText, customColor);
 
             // 更新显示
             updateCounterDisplay();
+
+            // 点击时显示面板并设置5秒后自动隐藏
+            showPanelWithTimeout();
 
             // 保存到localStorage
             localStorage.setItem("starLuckCounter", JSON.stringify(luckCounter));
@@ -232,6 +343,11 @@ document.addEventListener('DOMContentLoaded', function () {
         const starElement = document.querySelector(selector);
         if (starElement) {
             starElement.addEventListener("click", function (e) {
+                // 第一次点击时，设置已点击标志
+                if (!hasClickedAny) {
+                    hasClickedAny = true;
+                }
+
                 luckCounter[starName]++;
 
                 // 检查连击
@@ -239,9 +355,9 @@ document.addEventListener('DOMContentLoaded', function () {
                 if (now - comboTracker.lastClickTime < comboTracker.COMBO_TIMEOUT && comboTracker.targetId === starName) {
                     comboTracker.comboCount++;
                     if (comboTracker.comboCount >= 3) {
-                        // 连击3次以上显示特殊文本
-                        const comboText = `连击 x${comboTracker.comboCount}！`;
-                        createFloatingText(e, comboText, "#ff0000", true);
+                        // 连击3次以上显示特殊文本 - 简单文本样式
+                        const comboText = `连击 x${comboTracker.comboCount}`;
+                        createFloatingText(e, comboText, "#ff013c", true);
 
                         if (comboTracker.comboCount >= 10) {
                             // 超过10连击显示彩虹特效
@@ -254,12 +370,16 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
                 comboTracker.lastClickTime = now;
 
-                const customText = starCustomization[starName].text + luckCounter[starName];
+                // 简化为"财运 +1"格式
+                const customText = `${starCustomization[starName].text.replace('+', '').trim()} +${luckCounter[starName]}`;
                 const customColor = starCustomization[starName].color;
                 createFloatingText(e, customText, customColor);
 
                 // 更新显示
                 updateCounterDisplay();
+
+                // 点击时显示面板并设置5秒后自动隐藏
+                showPanelWithTimeout();
 
                 // 保存到localStorage
                 localStorage.setItem("starLuckCounter", JSON.stringify(luckCounter));
@@ -268,24 +388,43 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     // 创建浮动文本动画
-    function createFloatingText(event, text, color = "#ff69b4", isCombo = false) {
+    function createFloatingText(event, text, color = "#ffffff", isCombo = false) {
         // 创建文本元素
         const floatingText = document.createElement("div");
-        floatingText.className = "floating-text";
-        if (isCombo) floatingText.className += " combo-text";
+
+        if (isCombo) {
+            floatingText.className = "combo-text";
+            // 不再需要设置data-text属性，因为没有伪元素
+        } else {
+            floatingText.className = "floating-text";
+            // 非连击文本时设置颜色和发光效果
+            floatingText.style.color = color;
+            floatingText.style.textShadow = `0 0 5px rgba(0, 0, 0, 0.8), 
+                                            0 0 10px ${color}, 
+                                            0 0 15px ${color}, 
+                                            0 0 20px ${color}`;
+        }
+
+        // 设置文本内容
         floatingText.innerText = text;
 
-        // 设置渐变文本效果
-        floatingText.style.background = `linear-gradient(45deg, ${color}, white, ${color})`;
-        floatingText.style.webkitBackgroundClip = "text";
-        floatingText.style.backgroundClip = "text";
-        floatingText.style.webkitTextFillColor = "transparent";
-        floatingText.style.textShadow = `0 0 10px ${color}, 0 0 20px ${color}, 0 2px 2px rgba(0, 0, 0, 0.5)`;
-
-        // 计算位置 - 显示在点击位置的上方
+        // 计算位置 - 显示在头像的正上方
         const rect = event.target.getBoundingClientRect();
-        const x = event.clientX || rect.left + rect.width / 2;
-        const y = (event.clientY || rect.top) - 10;
+
+        // 连击特效需要考虑其宽度偏移
+        let x, y;
+
+        if (isCombo) {
+            // 连击特效居中显示
+            x = rect.left + (rect.width / 2) - (floatingText.offsetWidth / 2 || 60);
+            // 放置在头像上方更高的位置
+            y = rect.top - 80;
+        } else {
+            // 普通文本使用随机水平偏移
+            const randomOffsetX = (Math.random() - 0.5) * 20;
+            x = rect.left + (rect.width / 2) - (floatingText.offsetWidth / 2 || 40) + randomOffsetX;
+            y = rect.top - 40;
+        }
 
         // 设置初始位置
         floatingText.style.left = `${x}px`;
@@ -294,20 +433,12 @@ document.addEventListener('DOMContentLoaded', function () {
         // 添加到文档
         document.body.appendChild(floatingText);
 
-        // 添加微小的随机水平位移和旋转，使动画更生动
-        const randomX = (Math.random() - 0.5) * 30;
-        const randomRotation = (Math.random() - 0.5) * 15;
-
-        // 应用动画
-        setTimeout(() => {
-            floatingText.style.transform = `translate(${randomX}px, -60px) rotate(${randomRotation}deg)`;
-            floatingText.style.opacity = "0";
-        }, 10);
-
         // 动画结束后移除元素
         setTimeout(() => {
-            document.body.removeChild(floatingText);
-        }, 1000);
+            if (document.body.contains(floatingText)) {
+                document.body.removeChild(floatingText);
+            }
+        }, 2000);
     }
 
     // 创建彩虹特效
