@@ -165,6 +165,9 @@ document.addEventListener('DOMContentLoaded', function () {
             // 显示面板
             counterContainer.classList.add("hover-active");
 
+            // 清除about-to-hide，防止刚显示就有闪烁效果
+            counterContainer.classList.remove("about-to-hide");
+
             // 如果是第一次点击，添加特殊的动画类
             if (isFirstClick) {
                 counterContainer.classList.add("first-show");
@@ -230,8 +233,8 @@ document.addEventListener('DOMContentLoaded', function () {
             // 添加shown-hint标识
             container.classList.add('shown-hint');
 
-            // 确保不添加hover-active类，这样面板不会自动显示
-            // 在点击事件中会单独添加hover-active以暂时显示面板
+            // 不再自动添加hover-active类，只在点击事件中添加
+            // 确保默认情况下面板隐藏
         } else {
             container.classList.remove("has-counts");
             container.classList.remove("shown-hint");
